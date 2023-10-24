@@ -22,24 +22,19 @@ export const home = {
   },
 
   methods: {
-    incrementCounter: () => {
-      home.state.counter++;
-      StateManager.updateAppState(home.state);
-    },
-
-    decrementCounter: () => {
-      home.state.counter--;
-      StateManager.updateAppState(home.state);
-    },
+    highlightText: () => {
+      console.log("highlightText");
   },
 
+},
+
   setupIncrementButton: () => {
-    const button = document.getElementById("counter-button-increment");
-    button?.addEventListener("click", home.methods.incrementCounter);
+    const button = document.getElementById("text-container");
+    // button?.addEventListener("click", home.methods.incrementCounter);
   },
 
   setupDecrementButton: () => {
     const button = document.getElementById("counter-button-decrement");
-    button?.addEventListener("click", home.methods.decrementCounter);
+    // button?.addEventListener("click", home.methods.decrementCounter);
   },
 };
