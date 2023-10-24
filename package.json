@@ -1,0 +1,13 @@
+{
+  "name": "vanilla-typescript-boilerplate",
+  "source": "src/index.html",
+  "scripts": {
+    "dev": "parcel",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.10.0",
+    "@types/css-modules": "^1.0.4",
+    "parcel": "^2.10.0"
+  }
+}
