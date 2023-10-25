@@ -9,56 +9,56 @@
 }
 
 #app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
     height: 100vh;
-    background-color: #F4D03F;
-    background-image: linear-gradient(132deg, #F4D03F 0%, #16A085 100%);
-
-}
-
-.app-container {
-    border: 1px solid #ccc;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    text-align: center;
-}
-
-.title {
-    color: whitesmoke;
-    font-weight: 900;
-}
-
-.description {
-    color: whitesmoke;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    font-size: 1.25rem;
-}
-
-.counter-container {
+    background-color: #f5f5f5;
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-around;
-    margin-bottom: 2rem;
-    gap: 1rem;
 }
 
-.counter-button {
-    background-color: black;
-    color: whitesmoke;
-    border: none;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    font-size: 2rem;
+.popup-menu {
+    display: none;
+    position: absolute;
+    background-color: #f5f5f5;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: .5rem;
+    border-radius: .3rem;
+    margin-top: .3rem;
+    flex-direction: column;
+    gap: .3rem;
 }
 
-.counter-value {
-    font-size: 2rem;
+.popup-menu-button {
+    padding: 0.2rem .5rem;
+}
+
+.red {
     color: whitesmoke;
+    background-color: red;
+}
+
+.green {
+    color: whitesmoke;
+    background-color: green;
+}
+
+.blue {
+    color: whitesmoke;
+    background-color: blue;
+}
+
+.orange {
+    color: whitesmoke;
+    background-color: orange;
+}
+
+.purple {
+    color: whitesmoke;
+    background-color: purple;
+}
+
+.pink {
+    color: whitesmoke;
+    background-color: pink;
 }
