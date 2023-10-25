@@ -12,8 +12,11 @@ export const home = {
       {
         name: "Action",
         color: "purple",
-      }
-    ]
+      },
+    ],
+    startIndex: 0,
+    endIndex: 0,
+    currentSpan: null as HTMLElement | null,
   },
 
   init() {
@@ -23,8 +26,8 @@ export const home = {
     document.addEventListener("stateChange", home.syncState);
 
     // Setup the increment and decrement buttons
-    home.setupTextContainerEvents();
-    home.setupDecrementButton();
+    home.methods.setupTextContainerEvents();
+    home.methods.setupPopupMenu();
   },
 
   syncState() {
@@ -32,7 +35,6 @@ export const home = {
   },
 
   methods: {
-
     mouseSelectionTextHighLight: (parentElement: HTMLElement) => {
       const selection = window.getSelection();
 
@@ -54,35 +56,28 @@ export const home = {
         // Create a new span element
         const span = document.createElement("span");
 
-        // Pick a random color from the colors array
-        const randomColor = home.state.slots[0].color;
-
-        // Set the background color of the span element to the random color
-        span.classList.add(randomColor);
-
         // Surround the selected text with the span element
         range.surroundContents(span);
 
-        console.log(startIndex, endIndex);
+        // Set the current span
+        home.state.currentSpan = span;
+
+        home.state.startIndex = startIndex;
+        home.state.endIndex = endIndex;
+
+        // Get the bounding rectangle of the range
+        const rect = range?.getBoundingClientRect();
+
+        // Get the popup menu element
+        const popupMenu = document.getElementById("popup-menu");
+
+        // Set the position of the popup menu
+        if (rect && popupMenu) {
+          popupMenu.style.top = `${rect.bottom}px`;
+          popupMenu.style.left = `${rect.left}px`;
+          popupMenu.style.display = "flex";
+        }
       }
-
-      // Pick a random color from the colors array
-      
-      // Set the background color of the child element to the random color
-      // childElement.classList.add(randomColor);
-
-      // Get the text content of the parent element
-      // const sentence = parentElement.innerText;
-
-      // Get the text content of the child element
-      // const text = childElement.innerText;
-
-      // Find the start and end index of the child text in the sentence
-      // const { startIndex, endIndex } = home.methods.findStartAndEndIndex(
-      //   sentence,
-      //   text
-      // );
-      // console.log(startIndex, endIndex);
     },
 
     findStartAndEndIndex: (sentence: string, text: string) => {
@@ -94,21 +89,56 @@ export const home = {
       const endIndex = startIndex! + childTextContent!.length;
       return { startIndex, endIndex };
     },
-  },
 
-  setupTextContainerEvents: () => {
-    const textContainer = document.getElementById("text-container");
-    // Add a double click event listener to all child elements of the text container
+    setupTextContainerEvents: () => {
+      const textContainer = document.getElementById("text-container");
+      // Add a double click event listener to all child elements of the text container
 
-    textContainer?.addEventListener("mouseup", () =>
-      home.methods.mouseSelectionTextHighLight(textContainer!)
-    );
+      textContainer?.addEventListener("mouseup", () =>
+        home.methods.mouseSelectionTextHighLight(textContainer!)
+      );
 
-    // textContainer?.addEventListener("dblclick", () => home.methods.highlightText(textContainer));
-  },
+      // textContainer?.addEventListener("dblclick", () => home.methods.highlightText(textContainer));
+    },
 
-  setupDecrementButton: () => {
-    const button = document.getElementById("counter-button-decrement");
-    // button?.addEventListener("click", home.methods.decrementCounter);
+    clearIndex: () => {
+      home.state.startIndex = 0;
+      home.state.endIndex = 0;
+    },
+
+    selectSlot: (slot: string) => {
+      console.log(slot, home.state.startIndex, home.state.endIndex);
+      const theSlot = home.state.slots.find((s) => s.name === slot);
+      if (theSlot) {
+        home.state.currentSpan?.classList.add(theSlot.color);
+      }
+      home.methods.hidePopupMenu();
+      home.methods.clearIndex();
+    },
+
+    hidePopupMenu: () => {
+      const popupMenu = document.getElementById("popup-menu");
+      popupMenu!.style.display = "none";
+    },
+
+    setupPopupMenu: () => {
+      const popupMenu = document.getElementById("popup-menu");
+      // loop through the slots array and create a button for each slot
+      const buttons = home.state.slots.map((slot) => {
+        const button = document.createElement("button");
+        button.addEventListener("click", () =>
+          home.methods.selectSlot(slot.name)
+        );
+        button.classList.add("popup-menu-button");
+        button.classList.add(slot.color);
+        button.innerText = slot.name;
+        return button;
+      });
+
+      // Add the buttons to the popup menu
+      buttons.forEach((button) => {
+        popupMenu?.appendChild(button);
+      });
+    },
   },
 };
