@@ -1,6 +1,6 @@
 const event = new Event("stateChange");
 
-export const StateManager = {
+export const stateManager = {
   state: {},
   init(state: Object) {
     this.setupAppState(state);

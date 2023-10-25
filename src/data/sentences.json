@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "text": "Can you please turn on the bedroom light?",
+        "entities": []
+    },
+    {
+        "id": 2,
+        "text": "Could you turn off the kitchen light, please?",
+        "entities": []
+    },
+    {
+        "id": 3,
+        "text": "I need the living room light on, please.",
+        "entities": []
+    },
+    {
+        "id": 4,
+        "text": "Would you mind turning off the hallway light?",
+        "entities": []
+    },
+    {
+        "id": 5,
+        "text": "Please turn on the dining room light for me.",
+        "entities": []
+    },
+    {
+        "id": 6,
+        "text": "Can you turn off the bathroom light, please?",
+        "entities": []
+    },
+    {
+        "id": 7,
+        "text": "I'd like the office light turned on, please.",
+        "entities": []
+    },
+    {
+        "id": 8,
+        "text": "Please turn off the porch light when you get a chance.",
+        "entities": []
+    },
+    {
+        "id": 9,
+        "text": "Could you turn on the garage light for me, please?",
+        "entities": []
+    },
+    {
+        "id": 10,
+        "text": "Turn off the basement light, please.",
+        "entities": []
+    }
+]

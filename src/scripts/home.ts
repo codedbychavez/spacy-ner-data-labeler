@@ -1,54 +1,39 @@
-import { StateManager } from "../utils/StateManager";
+import { stateManager } from "../utils/StateManager";
+import { dataFetcher } from "../utils/DataFetcher";
 import type { Entity } from "../types/Entity";
+import type { Sentence } from "../types/Sentence";
+import type { Label } from "../types/Label";
 
 export const home = {
   // State is a global object that can be used to store data
   state: {
     counter: 0,
-    labels: [
-      {
-        name: "Subject",
-        color: "green",
-      },
-      {
-        name: "Action",
-        color: "purple",
-      },
-    ],
+    labels: [] as Label[],
     startIndex: 0,
     endIndex: 0,
     currentSpan: null as HTMLElement | null,
     popUpMenu: (document.getElementById("popup-menu") as HTMLElement) || null,
     nerDataContainer:
       (document.getElementById("ner-data-container") as HTMLElement) || null,
-    nerData: [
-      {
-        id: 1,
-        sentence: "can you please turn off the lights",
-        data: [] as Entity[],
-      },
-      {
-        id: 2,
-        sentence: "switch on the garage lights",
-        data: [] as Entity[],
-      },
-    ],
+    sentences: [] as Sentence[],
   },
 
-  init() {
+  init: async () => {
     // Tell the StateManager to use the state object from this file
-    StateManager.init(home.state);
+    stateManager.init(home.state);
     // Listen for state changes and the state object from this file
     document.addEventListener("stateChange", home.syncState);
 
-    // Setup the increment and decrement buttons
+    home.state.sentences = await dataFetcher.fetchSentences();
+    home.state.labels = await dataFetcher.fetchLabels();
+
     home.methods.setupEventListeners();
     home.methods.setupPopupMenu();
     home.methods.initNerData();
   },
 
   syncState() {
-    this.state = StateManager.getState();
+    this.state = stateManager.getState();
   },
 
   methods: {
@@ -157,7 +142,7 @@ export const home = {
         endIndex: home.state.endIndex,
       };
 
-      home.state.nerData[idNumber - 1].data.push(entityData as Entity);
+      home.state.sentences[idNumber - 1].entities.push(entityData as Entity);
       const theLabel = home.state.labels.find((s) => s.name === label);
       if (theLabel) {
         home.state.currentSpan?.classList.add(theLabel.color, "span-label");
@@ -195,13 +180,14 @@ export const home = {
     },
 
     initNerData: () => {
-      home.state.nerData.forEach((ner) => {
+      console.log(home.state.sentences, "sentences");
+      home.state.sentences.forEach((sentence) => {
         const textContainer = document.getElementById("text-container");
         const paragraph = document.createElement("p");
-        const nerDataId = `${ner.id}`;
+        const nerDataId = `${sentence.id}`;
         paragraph.setAttribute("id", nerDataId);
         paragraph.classList.add("sentence");
-        paragraph.innerText = ner.sentence;
+        paragraph.innerText = sentence.text;
         textContainer?.appendChild(paragraph);
       });
     },
@@ -209,7 +195,7 @@ export const home = {
     // Add the entity data to col-2
     addEntityData: () => {
       const nerDataContainer = home.state.nerDataContainer;
-      const nerData = home.state.nerData;
+      const nerData = home.state.sentences;
 
       // 1. Clear the col-2 element
       nerDataContainer!.innerHTML = "";
