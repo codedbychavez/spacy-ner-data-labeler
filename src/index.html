@@ -2,17 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Sway! - Vanilla TypeScript with Parcel.js</title>
+    <title>NER Data Labeler</title>
     <script src="app.ts" type="module" defer></script>
   </head>
   <body id="app">
     <div class="app-container">
-      <div id="text-container">
-        The Quick Brown Fox Jumps Over The Lazy Dog</span>
+      <div id="col-1" class="col-1">
+        <h2 class="column-title">Sentences</h2>
+        <div id="text-container"></div>
+      </div>
+
+      <div id="col-2" class="col-2">
+        <div id="ner-data-container"></div>
       </div>
     </div>
 
-    <div class="popup-menu" id="popup-menu">
-    </div>
+    <div class="popup-menu" id="popup-menu"></div>
   </body>
 </html>
