@@ -15,6 +15,51 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 4rem;
+}
+
+.app-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.col-1 {
+    width: 40%;
+}
+
+
+.col-2 {
+    flex-grow: 1;
+}
+
+.column-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+}
+
+p.sentence {
+    margin: 1rem 0rem;
+    border-bottom: 1px solid lightblue;
+    padding-bottom: .8rem;
+}
+
+.span-label {
+    padding: 0.1rem 0.4rem;
+    border-radius: .2rem;
+}
+
+pre {
+    background-color: black; 
+    color: #f5f5f5;
+    border-radius: .5rem;
+    padding: .5rem;
+    margin: 1rem 0rem;
+    height: 80vh;
+    overflow-y: scroll;
 }
 
 .popup-menu {
@@ -31,6 +76,16 @@
 
 .popup-menu-button {
     padding: 0.2rem .5rem;
+}
+
+.col-2-paragraph {}
+
+.entity-data-wrapper {
+    padding: 1rem 0rem;
+}
+
+.entity-data-wrapper:not(:last-child) {
+    // border-bottom: 1px solid lightblue;
 }
 
 .red {
